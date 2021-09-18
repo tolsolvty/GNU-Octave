@@ -1,6 +1,6 @@
 addpath(fullfile('..', '..', 'src'));
 
-load(fullfile('data', '100'));
+load(fullfile('data', '1000'));
 
 Ac = (infA + supA) / 2;
 Ar = (supA - infA) / 2;
