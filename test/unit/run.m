@@ -1,1 +1,1 @@
-runtests('.');
+oruntests('.');
