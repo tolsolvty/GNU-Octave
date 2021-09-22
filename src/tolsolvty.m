@@ -304,9 +304,9 @@ for itn = 1:maxitn;
     cal = 0; 
     deltax = 0;
     while ( r > 0. && cal <= 500 )
-        cal = cal + 1; 
-        x = x + hs*g; 
-        deltax = deltax + hs*normg; 
+        ++cal; 
+        x += hs*g; 
+        deltax += hs*normg; 
         [f, g1, tt] = calcfg(x); 
         if f > ff 
             ff = f; 
@@ -315,7 +315,7 @@ for itn = 1:maxitn;
         %   если прошло nh шагов одномерного подъёма, 
         %   то увеличиваем величину шага hs 
         if mod(cal,nh) == 0  
-            hs = hs*q2; 
+            hs *= q2; 
         end 
         r = g'*g1; 
     end 
@@ -327,13 +327,13 @@ for itn = 1:maxitn;
     %   если одномерный подъём занял один шаг, 
     %   то уменьшаем величину шага hs 
     if cal == 1
-        hs = hs*q1;
+        hs *= q1;
     end 
     %   уточняем статистику и при необходимости выводим её
-    ncals = ncals + cal;
+    ncals += cal;
     if itn==lp
         fprintf('\t%d\t%f\t%f\t%d\t%d\n',itn,f,ff,cal,ncals); 
-        lp = lp + iprn;
+        lp += iprn;
     end
     %   если вариация аргумента в одномерном поиске мала, то выход
     if deltax < epsx 
@@ -343,7 +343,7 @@ for itn = 1:maxitn;
     %   пересчитываем матрицу преобразования пространства 
     dg = B' * (g1 - g0);
     xi = dg / norm(dg);
-    B = B + w*(B*xi)*xi';
+    B += w*(B*xi).*xi';
     g0 = g1;
     %   проверка изменения значения функционала, относительного 
     %   либо абсолютного, на последних nsims шагах алгоритма
