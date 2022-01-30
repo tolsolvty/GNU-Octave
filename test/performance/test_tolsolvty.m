@@ -2,6 +2,6 @@ addpath(fullfile('..', '..', 'src'));
 
 load(fullfile('data', '1000'));
 
-tic;
+tic();
 evalc('tolsolvty(infA, supA, infb, supb)');
-toc;
+toc();
