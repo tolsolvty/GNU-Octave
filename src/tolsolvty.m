@@ -203,9 +203,12 @@ function [f,g,tt] = calcfg(x)
     %   на точечный вектор, через середину и радиус 
     Axc = Ac * x;
     Axr = Ar * abs(x);
-    infs = bc - (Axc + Axr);
-    sups = bc - (Axc - Axr);
-    tt = weight .* (br - max(abs(infs), abs(sups)));
+    Axi = Axc - Axr;
+    Axs = Axc + Axr;
+    infs = bc - Axs;
+    sups = bc - Axi;
+    mags = max(-infs, sups);
+    tt = weight .* (br - mags);
   
     %   сборка значения всего распознающего функционала 
     [f, mc] = min(tt);
